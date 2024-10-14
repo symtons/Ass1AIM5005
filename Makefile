@@ -1,15 +1,41 @@
-.PHONY: install test
+# Phony targets
+.PHONY: all install test tests 
 
-default: test
+# Detect OS
+ifeq ($(OS),Windows_NT)
+    detected_OS := Windows
+else
+    detected_OS := $(shell uname -s)
+endif
 
+# Set path separator
+ifeq ($(detected_OS),Windows)
+	PATHSEP := ;
+else
+	PATHSEP := :
+endif
+
+# Set PYTHONPATH
+export PYTHONPATH := .$(PATHSEP)$(PYTHONPATH)
+
+# Default target
+all: test
+
+# Install dependencies
 install:
 	pip install -e .
+	pip install pytest pytest-colored
 
-test:
-	PYTHONPATH=./ pytest -s
+# Run all tests
+test: tests
 
+tests:
+	pytest -s --color=yes
+
+# Run linear regression tests
 lr:
-	PYTHONPATH=./ pytest -s ./tests/test_linear_regression.py
-	
+	pytest -s --color=yes ./tests/test_linear_regression.py
+
+# Run feature tests
 features:
-	PYTHONPATH=./ pytest -s ./tests/test_features.py
+	pytest -s --color=yes ./tests/test_features.py
