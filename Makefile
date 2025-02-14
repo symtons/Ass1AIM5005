@@ -24,7 +24,7 @@ all: test
 # Install dependencies
 install:
 	pip install -e .
-	pip install pytest pytest-colored
+	pip install pytest
 
 # Run all tests
 test: tests
