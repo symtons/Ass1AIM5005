@@ -82,7 +82,7 @@ class TestFeatures(TestCase):
             f"fit then transform returned: {result_transform}"
         )
 
-    def test_label_encoder_numbers(self):
+    def test_label_encoder_example(self):
     
 
     # Example data: numbers with duplicates
