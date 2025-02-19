@@ -85,10 +85,10 @@ class TestFeatures(TestCase):
     def test_label_encoder_example(self):
     
 
-    # Example data: numbers with duplicates
+    
         data = [3, 1, 2, 3, 1]
         
-        # After fitting, np.unique will sort the classes: [1, 2, 3]
+        
         expected_classes = np.array([1, 2, 3])
         
         encoder = LabelEncoder()
@@ -96,16 +96,13 @@ class TestFeatures(TestCase):
         assert np.array_equal(encoder.classes_, expected_classes), (
             f"Expected classes_ to be {expected_classes}, got {encoder.classes_}"
         )
-        
-        # Test transform: mapping should be as follows:
-        # 1 -> 0, 2 -> 1, 3 -> 2, so [3, 1, 2, 3, 1] transforms to [2, 0, 1, 2, 0]
+    
         expected_transformed = np.array([2, 0, 1, 2, 0])
         transformed = encoder.transform(data)
         assert np.array_equal(transformed, expected_transformed), (
             f"Expected transform to return {expected_transformed}, got {transformed}"
         )
-        
-        # Test fit_transform
+   
         encoder2 = LabelEncoder()
         fit_transformed = encoder2.fit_transform(data)
         assert np.array_equal(fit_transformed, expected_transformed), (

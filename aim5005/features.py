@@ -64,23 +64,19 @@ class StandardScaler:
     
 class LabelEncoder:
     def __init__(self):
-        # After fitting, classes_ will be a sorted numpy array of unique labels.
+       
         self.classes_ = None
 
     def fit(self, y) -> 'LabelEncoder':
-        """
-        Fit label encoder and store unique classes in sorted order.
-        """
+       
         y = np.array(y)
         self.classes_ = np.unique(y)
         return self
 
     def transform(self, y) -> np.ndarray:
-        """
-        Transform labels to normalized encoding.
-        """
+        
         y = np.array(y)
-        # Build a mapping from label to integer index.
+        
         mapping = {label: idx for idx, label in enumerate(self.classes_)}
         try:
             transformed = np.array([mapping[label] for label in y])
@@ -89,8 +85,6 @@ class LabelEncoder:
         return transformed
 
     def fit_transform(self, y) -> np.ndarray:
-        """
-        Fit label encoder and return encoded labels.
-        """
+        
         return self.fit(y).transform(y)
 
